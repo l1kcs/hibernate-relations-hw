@@ -16,14 +16,14 @@ public class CountryServiceImpl implements CountryService {
 
     @Override
     public Country add(Country country) {
-        CountryDao countryDao = this.countryDao;
         countryDao.add(country);
-        return country;
+        return countryDao.get(country.getId()).orElseThrow(
+                () -> new DataProcessingException(
+                        "cannot get an instance of newly created country"));
     }
 
     @Override
     public Country get(Long id) {
-        CountryDao countryDao = this.countryDao;
         return countryDao.get(id).orElseThrow(
                 () -> new DataProcessingException("cannot get an instance from DB"));
     }

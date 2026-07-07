@@ -16,14 +16,14 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public Movie add(Movie movie) {
-        MovieDao movieDao = this.movieDao;
         movieDao.add(movie);
-        return movie;
+        return movieDao.get(movie.getId()).orElseThrow(
+                () -> new DataProcessingException(
+                        "cannot get an instance of newly created movie"));
     }
 
     @Override
     public Movie get(Long id) {
-        MovieDao movieDao = this.movieDao;
         return movieDao.get(id).orElseThrow(
                 () -> new DataProcessingException("cannot get an instance from DB"));
     }
