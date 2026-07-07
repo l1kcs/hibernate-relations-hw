@@ -19,12 +19,13 @@ public class ActorServiceImpl implements ActorService {
         actorDao.add(actor);
         return actorDao.get(actor.getId()).orElseThrow(
                 () -> new DataProcessingException(
-                        "cannot get an instance of newly created actor"));
+                        "cannot get an instance of newly created actor: " + actor.getId()));
     }
 
     @Override
     public Actor get(Long id) {
         return actorDao.get(id).orElseThrow(
-                () -> new DataProcessingException("cannot get an instance from DB"));
+                () -> new DataProcessingException(
+                        "cannot get an instance of actor " + id + " from DB"));
     }
 }

@@ -19,12 +19,13 @@ public class CountryServiceImpl implements CountryService {
         countryDao.add(country);
         return countryDao.get(country.getId()).orElseThrow(
                 () -> new DataProcessingException(
-                        "cannot get an instance of newly created country"));
+                        "cannot get an instance of newly created country: " + country.getId()));
     }
 
     @Override
     public Country get(Long id) {
         return countryDao.get(id).orElseThrow(
-                () -> new DataProcessingException("cannot get an instance from DB"));
+                () -> new DataProcessingException(
+                        "cannot get an instance of country " + id + " from DB"));
     }
 }
